@@ -1,19 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
+import { useTasks } from "./hooks/useTasks";
+import type { Task } from "./types/task";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [tasks, setTasks] = useState<Partial<Task>[]>([]);
+  const { fetchTasks } = useTasks();
+
+  useEffect(() => {
+    fetchTasks().then(setTasks);
+  }, []);
+
+  useEffect(() => {
+    console.log(tasks);
+  }, [tasks]);
 
   return (
-    <main className="flex justify-center items-center h-screen gap-2">
-      <span>Count is</span>
-      <button
-        className="w-10 h-10 bg-gray-100 rounded cursor-pointer border border-[#FFFFFF] hover:border-black transition duration-100"
-        onClick={() => setCount((count) => count + 1)}
-      >
-        {count}
-      </button>
-      <span>!</span>
+    <main className="flex flex-col justify-center items-center h-screen gap-2">
+      <h1 className="text-2xl hover:*:block flex items-center">
+        <span className="border p-0.5 mr-0.5 rounded">M</span>
+        <span className="hidden">otion</span>
+      </h1>
+      {tasks.map((t) => (
+        <div className="bg-gray-100 p-2 rounded flex gap-1" key={t.id}>
+          <p> {t.title}</p>
+          <button className="border rounded-full aspect-square hover:bg-black hover:text-gray-50 cursor-pointer">
+            ×
+          </button>
+        </div>
+      ))}
     </main>
   );
 }
