@@ -14,12 +14,12 @@ export type Task = {
   id: string;
   title: string;
   description?: string;
-  assignee?: string;
+  assignee?: { name: string; avatar: string };
   reportedTo?: string;
   dueDate?: string;
   dueDateObj?: Date;
   priority?: "low" | "medium" | "high";
   status: "todo" | "in-progress" | "done";
-  subtasks?: Subtask[];
+  subtasks: Subtask[];
   comments?: Comment[];
 };

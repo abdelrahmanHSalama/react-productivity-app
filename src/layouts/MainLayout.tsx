@@ -84,14 +84,14 @@ const MainLayout: React.FC = () => {
               borderRadius: "2rem",
             }}
           />
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 mr-2">
             <BellOutlined
               style={{
                 fontSize: "1.25rem",
               }}
             />
             <img
-              src="https://images.unsplash.com/photo-1740252117070-7aa2955b25f8"
+              src="https://www.rockstargames.com/img/global/downloads/buddyiconsconavatars/sanandreas_grovestreetfamily3_256x256.jpg"
               className="rounded-full w-[2.5rem]"
             />
             <p>
