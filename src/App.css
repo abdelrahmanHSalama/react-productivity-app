@@ -4,11 +4,16 @@
   --main-orange: #f18046;
   --sec-orange: #fff3ec;
   --dark-grey: #73757b;
-  --light-grey: #f8f8f8;
+  --light-grey: #f8faf9;
+  --medium-grey: #ededed;
 }
 
 * {
   font-family: "Nunito", sans-serif;
+}
+
+body {
+  background-color: var(--bg) !important;
 }
 
 .ant-menu-item {

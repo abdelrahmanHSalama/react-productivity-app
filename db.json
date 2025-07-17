@@ -4,7 +4,10 @@
       "id": "123e4567-e89b-12d3-a456-426614174010",
       "title": "Test useTasks hook",
       "description": "Log and inspect the behavior of the hook before UI integration.",
-      "assignee": "Abdelrahman",
+      "assignee": {
+        "name": "Michael",
+        "avatar": "https://www.rockstargames.com/img/global/downloads/buddyiconsconavatars/v_hunt_m_256x256.jpg"
+      },
       "reportedTo": "Self",
       "dueDate": "2025-07-15",
       "priority": "low",
@@ -13,7 +16,7 @@
         {
           "id": "234e5678-e89b-12d3-a456-426614174011",
           "title": "Create fake task data",
-          "done": true
+          "done": false
         },
         {
           "id": "345e6789-e89b-12d3-a456-426614174012",
@@ -33,7 +36,10 @@
       "id": "901e2345-e89b-12d3-a456-426614174018",
       "title": "Create modal for task editing",
       "description": "Allow user to view, edit, and update tasks in a modal.",
-      "assignee": "Abdelrahman",
+      "assignee": {
+        "name": "Franklin",
+        "avatar": "https://www.rockstargames.com/img/global/downloads/buddyiconsconavatars/v_hunt_f_256x256.jpg"
+      },
       "reportedTo": "Mentor",
       "dueDate": "2025-07-25",
       "priority": "high",
@@ -42,12 +48,12 @@
         {
           "id": "012e3456-e89b-12d3-a456-426614174019",
           "title": "Build modal shell",
-          "done": false
+          "done": true
         },
         {
           "id": "123e4567-e89b-12d3-a456-426614174020",
           "title": "Add form inputs",
-          "done": false
+          "done": true
         },
         {
           "id": "234e5678-e89b-12d3-a456-426614174021",
@@ -61,23 +67,15 @@
       "id": "345e6789-e89b-12d3-a456-426614174022",
       "title": "Implement task board view",
       "description": "Display tasks grouped by status in cards (To-Do, In Progress, Done).",
-      "assignee": "Abdelrahman",
+      "assignee": {
+        "name": "Trevor",
+        "avatar": "https://www.rockstargames.com/img/global/downloads/buddyiconsconavatars/v_hunt_t_256x256.jpg"
+      },
       "reportedTo": "Mentor",
       "dueDate": "2025-07-23",
       "priority": "medium",
       "status": "in-progress",
-      "subtasks": [
-        {
-          "id": "456e7890-e89b-12d3-a456-426614174023",
-          "title": "Setup 3 columns",
-          "done": true
-        },
-        {
-          "id": "567e8901-e89b-12d3-a456-426614174024",
-          "title": "Render tasks in correct column",
-          "done": false
-        }
-      ],
+      "subtasks": [],
       "comments": [
         {
           "id": "678e9012-e89b-12d3-a456-426614174025",
