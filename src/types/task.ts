@@ -15,7 +15,7 @@ export type Task = {
   title: string;
   description?: string;
   assignee?: { name: string; avatar: string };
-  reportedTo?: string;
+  reportTo?: string;
   dueDate?: string;
   dueDateObj?: Date;
   priority?: "low" | "medium" | "high";

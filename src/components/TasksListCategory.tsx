@@ -28,7 +28,7 @@ const TasksListCategory = ({
           {tasks.length}
         </div>
       </div>
-      {!collapsed && tasks.map((t) => <TasksListItem task={t} />)}
+      {!collapsed && tasks.map((t) => <TasksListItem task={t} key={t.id} />)}
     </div>
   );
 };

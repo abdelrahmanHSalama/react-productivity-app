@@ -1,5 +1,6 @@
 import axios from "axios";
 import type { Task } from "../types/task";
+import { v4 as uuidv4 } from "uuid";
 
 export const fetchTasks = async () => {
   const res = await axios.get("http://localhost:3000/tasks");
@@ -7,7 +8,9 @@ export const fetchTasks = async () => {
 };
 
 export const addTask = async (task: Task) => {
-  const res = await axios.post("http://localhost:3000/tasks", task);
+  const newTask = { ...task };
+  newTask.id = uuidv4();
+  const res = await axios.post("http://localhost:3000/tasks", newTask);
   return res.data;
 };
 
