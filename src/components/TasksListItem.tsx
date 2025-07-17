@@ -66,7 +66,11 @@ const TasksListItem = ({ task }: { task: Task }) => {
       <span className="flex-1/8 flex justify-center border-l border-l-[var(--medium-grey)] h-full">
         <img
           className="w-[1.5rem] rounded-full"
-          src={task.assignee?.avatar}
+          src={
+            task.assignee?.avatar ||
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Solid_black.svg/512px-Solid_black.svg.png"
+          }
+          alt={task.assignee?.name}
         ></img>
       </span>
       <span className="flex-1/8 flex justify-center items-center border-l border-l-[var(--medium-grey)] h-full">

@@ -8,7 +8,7 @@
         "name": "Michael",
         "avatar": "https://www.rockstargames.com/img/global/downloads/buddyiconsconavatars/v_hunt_m_256x256.jpg"
       },
-      "reportedTo": "Self",
+      "reportTo": "Self",
       "dueDate": "2025-07-15",
       "priority": "low",
       "status": "done",
@@ -40,7 +40,7 @@
         "name": "Franklin",
         "avatar": "https://www.rockstargames.com/img/global/downloads/buddyiconsconavatars/v_hunt_f_256x256.jpg"
       },
-      "reportedTo": "Mentor",
+      "reportTo": "Mentor",
       "dueDate": "2025-07-25",
       "priority": "high",
       "status": "todo",
@@ -71,7 +71,7 @@
         "name": "Trevor",
         "avatar": "https://www.rockstargames.com/img/global/downloads/buddyiconsconavatars/v_hunt_t_256x256.jpg"
       },
-      "reportedTo": "Mentor",
+      "reportTo": "Mentor",
       "dueDate": "2025-07-23",
       "priority": "medium",
       "status": "in-progress",
