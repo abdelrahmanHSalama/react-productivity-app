@@ -12,19 +12,9 @@ const TaskModal = ({
   const [form] = Form.useForm();
   const { TextArea } = Input;
 
-  const onChange = (value: string) => {
-    console.log(`selected ${value}`);
-  };
-
-  const onSearch = (value: string) => {
-    console.log("search:", value);
-  };
   const onFinish = async (values: Task) => {
     console.log("Form submitted:", values);
     addTask(values).then((res) => console.log(res));
-  };
-  const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
   };
 
   return (
@@ -85,8 +75,6 @@ const TaskModal = ({
               showSearch
               placeholder="Select a person"
               optionFilterProp="label"
-              onChange={onChange}
-              onSearch={onSearch}
               options={[
                 {
                   value: "Michael",
@@ -114,8 +102,6 @@ const TaskModal = ({
               showSearch
               placeholder="Select a person"
               optionFilterProp="label"
-              onChange={onChange}
-              onSearch={onSearch}
               options={[
                 {
                   value: "Michael",

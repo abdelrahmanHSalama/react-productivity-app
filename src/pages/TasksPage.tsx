@@ -1,32 +1,28 @@
-import { useEffect, useState } from "react";
-import { fetchTasks } from "../utils/tasksService";
-import type { Task } from "../types/task";
+import { useState } from "react";
 import TasksListCategory from "../components/TasksListCategory";
 import { Button } from "antd";
 import { createPortal } from "react-dom";
 import TaskModal from "../components/TaskModal";
+import { useQuery } from "@tanstack/react-query";
+import { fetchTasks } from "../utils/tasksService";
+import { type Task } from "../types/task";
 
 const TasksPage = () => {
-  const [tasks, setTasks] = useState<Task[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState("");
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const tasks = await fetchTasks();
-      setTasks(tasks);
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    console.log(tasks);
-  }, [tasks]);
 
   const handleShowModal = () => {
     setShowModal((prev) => !prev);
   };
+
+  const {
+    data: tasks,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["tasks"],
+    queryFn: fetchTasks,
+  });
 
   return (
     <main
@@ -57,20 +53,24 @@ const TasksPage = () => {
         <span className="flex-1/8 flex justify-center">Priority</span>
       </div>
 
-      <TasksListCategory
-        tasks={tasks.filter((t) => t.status === "todo")}
-        category="todo"
-      />
+      {!isLoading && !isError && (
+        <>
+          <TasksListCategory
+            tasks={tasks.filter((t: Task) => t.status === "todo")}
+            category="todo"
+          />
 
-      <TasksListCategory
-        tasks={tasks.filter((t) => t.status === "in-progress")}
-        category="in-progress"
-      />
+          <TasksListCategory
+            tasks={tasks.filter((t: Task) => t.status === "in-progress")}
+            category="in-progress"
+          />
 
-      <TasksListCategory
-        tasks={tasks.filter((t) => t.status === "done")}
-        category="done"
-      />
+          <TasksListCategory
+            tasks={tasks.filter((t: Task) => t.status === "done")}
+            category="done"
+          />
+        </>
+      )}
 
       {showModal &&
         createPortal(
