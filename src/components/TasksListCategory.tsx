@@ -8,7 +8,7 @@ const TasksListCategory = ({
   category,
 }: {
   tasks: Task[];
-  category: "todo" | "in-progress" | "done";
+  category: string;
 }) => {
   const [collapsed, setCollapsed] = useState(false);
   return (

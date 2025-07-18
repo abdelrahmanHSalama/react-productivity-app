@@ -1,18 +1,18 @@
 import { useState } from "react";
-import TasksListCategory from "../components/TasksListCategory";
 import { Button } from "antd";
 import { createPortal } from "react-dom";
-import TaskModal from "../components/TaskModal";
+import NewTaskModal from "../components/NewTaskModal";
 import { useQuery } from "@tanstack/react-query";
 import { fetchTasks } from "../utils/tasksService";
-import { type Task } from "../types/task";
+import TasksList from "../components/TasksList";
+import { TasksListsProvider } from "../context/TasksListContext";
 
 const TasksPage = () => {
-  const [showModal, setShowModal] = useState(false);
+  const [showNewTaskModal, setShowNewTaskModal] = useState(false);
   const [modalType, setModalType] = useState("");
 
-  const handleShowModal = () => {
-    setShowModal((prev) => !prev);
+  const handleNewTaskModal = () => {
+    setShowNewTaskModal((prev) => !prev);
   };
 
   const {
@@ -25,59 +25,47 @@ const TasksPage = () => {
   });
 
   return (
-    <main
-      className={`flex flex-col gap-4 transition-all duration-100 ${
-        showModal ? "blur-sm" : ""
-      }`}
-    >
-      <div className="flex justify-between px-2">
-        <div>viewToggle</div>
-        <Button
-          style={{
-            color: "var(--main-orange)",
-            fontWeight: 600,
-            borderColor: "var(--main-orange)",
-          }}
-          onClick={() => {
-            setModalType("new");
-            setShowModal((prev) => !prev);
-          }}
-        >
-          + New Task
-        </Button>
-      </div>
-      <div className="flex w-full justify-between bg-white rounded p-2 font-semibold text-[var(--dark-grey)]">
-        <span className="flex-5/8">To Do Name</span>
-        <span className="flex-1/8 flex justify-center">Assignee</span>
-        <span className="flex-1/8 flex justify-center">Due Date</span>
-        <span className="flex-1/8 flex justify-center">Priority</span>
-      </div>
+    <TasksListsProvider>
+      <main
+        className={`flex flex-col gap-4 transition-all duration-100 ${
+          showNewTaskModal ? "blur-sm" : ""
+        }`}
+      >
+        <div className="flex justify-between px-2">
+          <div>viewToggle</div>
+          <Button
+            style={{
+              color: "var(--main-orange)",
+              fontWeight: 600,
+              borderColor: "var(--main-orange)",
+            }}
+            onClick={() => {
+              setModalType("new");
+              setShowNewTaskModal((prev) => !prev);
+            }}
+          >
+            + New Task
+          </Button>
+        </div>
+        <div className="flex w-full justify-between bg-white rounded p-2 font-semibold text-[var(--dark-grey)]">
+          <span className="flex-5/8">To Do Name</span>
+          <span className="flex-1/8 flex justify-center">Assignee</span>
+          <span className="flex-1/8 flex justify-center">Due Date</span>
+          <span className="flex-1/8 flex justify-center">Priority</span>
+        </div>
 
-      {!isLoading && !isError && (
-        <>
-          <TasksListCategory
-            tasks={tasks.filter((t: Task) => t.status === "todo")}
-            category="todo"
-          />
+        {!isLoading && !isError && <TasksList tasks={tasks} />}
 
-          <TasksListCategory
-            tasks={tasks.filter((t: Task) => t.status === "in-progress")}
-            category="in-progress"
-          />
-
-          <TasksListCategory
-            tasks={tasks.filter((t: Task) => t.status === "done")}
-            category="done"
-          />
-        </>
-      )}
-
-      {showModal &&
-        createPortal(
-          <TaskModal taskType={modalType} handleModal={handleShowModal} />,
-          document.body
-        )}
-    </main>
+        {showNewTaskModal &&
+          createPortal(
+            <NewTaskModal
+              taskType={modalType}
+              handleModal={handleNewTaskModal}
+            />,
+            document.body
+          )}
+      </main>
+    </TasksListsProvider>
   );
 };
 

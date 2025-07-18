@@ -2,7 +2,7 @@ import { Button, DatePicker, Form, Input, Select } from "antd";
 import type { Task } from "../types/task";
 import { addTask } from "../utils/tasksService";
 
-const TaskModal = ({
+const NewTaskModal = ({
   taskType,
   handleModal,
 }: {
@@ -227,4 +227,4 @@ const TaskModal = ({
   );
 };
 
-export default TaskModal;
+export default NewTaskModal;

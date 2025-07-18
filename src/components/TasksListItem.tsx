@@ -9,6 +9,9 @@ import {
 import type { Task } from "../types/task";
 import { useState } from "react";
 import { toggleSubtask } from "../utils/tasksService";
+import { useTasksListContext } from "../context/TasksListContext";
+import { createPortal } from "react-dom";
+import ExistingTaskModal from "./ExistingTaskModal";
 
 const TasksListItem = ({ task }: { task: Task }) => {
   const [collapsed, setCollapsed] = useState(true);
@@ -21,13 +24,16 @@ const TasksListItem = ({ task }: { task: Task }) => {
       });
   };
 
+  const { openTask, setOpenTask } = useTasksListContext();
+  // Property 'openTask' does not exist on type 'TaskListContextType | null'.ts(2339)
+
   return (
     <div
       className="flex items-center w-full justify-between bg-white font-semibold text-[var(--dark-grey)]"
       key={task.id}
     >
       <div className="flex-5/8 px-2 py-3 space-y-2 ml-4">
-        <p className="flex gap-2">
+        <div className="flex gap-2">
           {task.subtasks.length > 0 ? (
             collapsed === true ? (
               <CaretRightOutlined
@@ -44,8 +50,10 @@ const TasksListItem = ({ task }: { task: Task }) => {
               className="cursor-not-allowed"
             />
           )}
-          {task.title}
-        </p>
+          <span className="cursor-pointer" onClick={() => setOpenTask(task)}>
+            {task.title}
+          </span>
+        </div>
         {!collapsed &&
           task.subtasks.map((st) => (
             <p className="ml-6 flex gap-2">
@@ -87,6 +95,10 @@ const TasksListItem = ({ task }: { task: Task }) => {
           "N/A"
         )}
       </span>
+
+      {openTask &&
+        task.title === openTask.title &&
+        createPortal(<ExistingTaskModal />, document.body)}
     </div>
   );
 };
