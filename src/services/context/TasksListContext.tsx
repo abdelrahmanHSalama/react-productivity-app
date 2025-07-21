@@ -25,7 +25,13 @@ export const TasksListsProvider: React.FC<{ children: React.ReactNode }> = ({
 };
 
 export const useTasksListContext = () => {
-  return useContext(TasksListContext);
+  const context = useContext(TasksListContext);
+  if (!context) {
+    throw new Error(
+      "useTasksListContext must be used within a TasksListsProvider"
+    );
+  }
+  return context;
 };
 
 export default TasksListContext;

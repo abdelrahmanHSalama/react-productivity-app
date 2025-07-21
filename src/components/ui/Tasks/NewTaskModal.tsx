@@ -1,33 +1,33 @@
-import { Button, DatePicker, Form, Input, Select } from "antd";
-import type { Task } from "../types/task";
-import { addTask } from "../utils/tasksService";
+import { Button, DatePicker, Form, Input, Select } from 'antd'
+import ModalButton from './ModalButton'
+import { addTask } from '@/services/utils/tasksService'
+import type { Task } from '@/services/types/task'
 
 const NewTaskModal = ({
   taskType,
   handleModal,
 }: {
-  taskType: string;
-  handleModal: (show: boolean) => void;
+  taskType: string
+  handleModal: (show: boolean) => void
 }) => {
-  const [form] = Form.useForm();
-  const { TextArea } = Input;
+  const [form] = Form.useForm()
+  const { TextArea } = Input
 
   const onFinish = async (values: Task) => {
-    console.log("Form submitted:", values);
-    addTask(values).then((res) => console.log(res));
-  };
+    console.log('Form submitted:', values)
+    addTask(values).then((res) => console.log(res))
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/25">
-      <div className="w-[50%] max-h-[80vh] overflow-y-auto bg-white rounded-2xl p-4 shadow-2xl">
+      <div className="w-[60%] max-h-[80vh] overflow-y-auto bg-white rounded-2xl p-4 shadow-2xl">
         <div className="flex justify-between items-center mb-4">
-          <p>{taskType === "new" ? "New Task" : "Edit Task"}</p>
-          <button
-            className="p-1 bg-[var(--medium-grey)] rounded h-[2rem] w-[2rem] hover:bg-[var(--dark-grey)] transition duration-250 hover:text-white cursor-pointer"
+          <p>{taskType === 'new' ? 'New Task' : 'Edit Task'}</p>
+          <ModalButton
+            variant="bordered"
+            content="×"
             onClick={() => handleModal(false)}
-          >
-            ×
-          </button>
+          />
         </div>
 
         <Form
@@ -35,13 +35,13 @@ const NewTaskModal = ({
           layout="vertical"
           onFinish={onFinish}
           initialValues={{
-            title: "",
-            description: "",
-            assignee: { name: "", avatar: "" },
-            reportTo: "",
-            dueDate: "",
-            priority: "medium",
-            status: "todo",
+            title: '',
+            description: '',
+            assignee: { name: '', avatar: '' },
+            reportTo: '',
+            dueDate: '',
+            priority: 'medium',
+            status: 'todo',
             subtasks: [],
             comments: [],
           }}
@@ -50,7 +50,7 @@ const NewTaskModal = ({
             label="Title"
             name="title"
             rules={[
-              { required: false, message: "Please input the task title!" },
+              { required: false, message: 'Please input the task title!' },
             ]}
           >
             <Input />
@@ -59,7 +59,7 @@ const NewTaskModal = ({
             label="Description"
             name="description"
             rules={[
-              { required: false, message: "Please input the task title!" },
+              { required: false, message: 'Please input the task title!' },
             ]}
           >
             <TextArea />
@@ -68,7 +68,7 @@ const NewTaskModal = ({
             label="Assignee"
             name="assignee"
             rules={[
-              { required: false, message: "Please input the task title!" },
+              { required: false, message: 'Please input the task title!' },
             ]}
           >
             <Select
@@ -77,16 +77,16 @@ const NewTaskModal = ({
               optionFilterProp="label"
               options={[
                 {
-                  value: "Michael",
-                  label: "Michael",
+                  value: 'Michael',
+                  label: 'Michael',
                 },
                 {
-                  value: "Franklin",
-                  label: "Franklin",
+                  value: 'Franklin',
+                  label: 'Franklin',
                 },
                 {
-                  value: "Trevor",
-                  label: "Trevor",
+                  value: 'Trevor',
+                  label: 'Trevor',
                 },
               ]}
             />
@@ -95,7 +95,7 @@ const NewTaskModal = ({
             label="Report to"
             name="reportTo"
             rules={[
-              { required: false, message: "Please input the task title!" },
+              { required: false, message: 'Please input the task title!' },
             ]}
           >
             <Select
@@ -104,16 +104,16 @@ const NewTaskModal = ({
               optionFilterProp="label"
               options={[
                 {
-                  value: "Michael",
-                  label: "Michael",
+                  value: 'Michael',
+                  label: 'Michael',
                 },
                 {
-                  value: "Franklin",
-                  label: "Franklin",
+                  value: 'Franklin',
+                  label: 'Franklin',
                 },
                 {
-                  value: "Trevor",
-                  label: "Trevor",
+                  value: 'Trevor',
+                  label: 'Trevor',
                 },
               ]}
             />
@@ -122,7 +122,7 @@ const NewTaskModal = ({
             label="Due Date"
             name="dueDate"
             rules={[
-              { required: false, message: "Please input the task title!" },
+              { required: false, message: 'Please input the task title!' },
             ]}
           >
             <DatePicker format="YYYY-MM-DD" />
@@ -130,13 +130,13 @@ const NewTaskModal = ({
           <Form.Item
             label="Priority"
             name="priority"
-            rules={[{ required: false, message: "Please select a priority!" }]}
+            rules={[{ required: false, message: 'Please select a priority!' }]}
           >
             <Select
               options={[
-                { value: "low", label: "Low" },
-                { value: "medium", label: "Medium" },
-                { value: "high", label: "High" },
+                { value: 'low', label: 'Low' },
+                { value: 'medium', label: 'Medium' },
+                { value: 'high', label: 'High' },
               ]}
             />
           </Form.Item>
@@ -144,14 +144,14 @@ const NewTaskModal = ({
             label="Status"
             name="status"
             rules={[
-              { required: false, message: "Please input the task title!" },
+              { required: false, message: 'Please input the task title!' },
             ]}
           >
             <Select
               options={[
-                { value: "todo", label: "Todo" },
-                { value: "in-progress", label: "In Progress" },
-                { value: "done", label: "Done" },
+                { value: 'todo', label: 'Todo' },
+                { value: 'in-progress', label: 'In Progress' },
+                { value: 'done', label: 'Done' },
               ]}
             />
           </Form.Item>
@@ -163,9 +163,9 @@ const NewTaskModal = ({
                     <div key={key} className="flex gap-2 mb-2">
                       <Form.Item
                         {...restField}
-                        name={[name, "title"]}
+                        name={[name, 'title']}
                         rules={[
-                          { required: false, message: "Missing subtask title" },
+                          { required: false, message: 'Missing subtask title' },
                         ]}
                         className="flex-1"
                       >
@@ -194,9 +194,9 @@ const NewTaskModal = ({
                     <div key={key} className="flex gap-2 mb-2">
                       <Form.Item
                         {...restField}
-                        name={[name, "text"]}
+                        name={[name, 'text']}
                         rules={[
-                          { required: false, message: "Missing comment text" },
+                          { required: false, message: 'Missing comment text' },
                         ]}
                         className="flex-1"
                       >
@@ -224,7 +224,7 @@ const NewTaskModal = ({
         </Form>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default NewTaskModal;
+export default NewTaskModal
