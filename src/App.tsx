@@ -1,35 +1,34 @@
-import "./App.css";
-import { ConfigProvider } from "antd";
-import { BrowserRouter, Route, Routes } from "react-router";
-import MainLayout from "./layouts/MainLayout";
-import TasksPage from "./pages/TasksPage";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Route, Routes } from 'react-router'
+import { MainLayout } from './components/layouts'
+import TasksPage from './pages/tasks/TasksPage'
 
-const App: React.FC = () => {
-  const queryClient = new QueryClient();
+// import { useGetPostsQuery } from './services/api'
+
+function App() {
+  // const [posts, setPosts] = useState<any>([])
+  // const [error, setError] = useState<any>(null)
+  // const [loading, setLoading] = useState<boolean>(true)
+
+  // const { data: posts, error, isLoading: loading, refetch } = useGetPostsQuery()
+
+  // useEffect(() => {
+  //   getPosts()
+  //     .then((data) => setPosts(data))
+  //     .catch((err) => setError(err))
+  //     .finally(() => setLoading(false))
+  // }, [])
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <ConfigProvider
-        theme={{
-          token: {},
-          components: {
-            Menu: {
-              algorithm: true, // Enable algorithm
-            },
-          },
-        }}
-      >
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<MainLayout />}>
-              {/* <Route index element={<Home />} /> */}
-              <Route path="tasks" element={<TasksPage />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </ConfigProvider>
-    </QueryClientProvider>
-  );
-};
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<MainLayout />}>
+            <Route path="tasks" element={<TasksPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </>
+  )
+}
 
-export default App;
+export default App

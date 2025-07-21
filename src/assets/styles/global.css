@@ -1,0 +1,59 @@
+@import 'tailwindcss';
+
+* {
+  line-height: 1rem;
+}
+
+@theme {
+  --color-primary: var(--c-primary);
+  --color-primary-dark: var(--c-primary-dark);
+  --color-secondary: var(--c-secondary);
+  --color-background: var(--c-background);
+  --color-background-dark: var(--c-background-dark);
+  --color-text: var(--c-text);
+  --color-card: var(--c-card);
+  --color-border: var(--c-border);
+  --color-input: var(--c-input);
+  --color-danger: var(--c-danger);
+  --color-danger-content: var(--c-danger-content);
+  --color-success: var(--c-success);
+  --color-warning: var(--c-warning);
+  --color-info: var(--c-info);
+  --color-primary-orange: var(--c-orange-main);
+  --color-secondary-orange: var(--c-orange-secondary);
+  --color-light-grey: var(--c-grey-light);
+  --color-dark-grey: var(--c-grey-dark);
+  --color-medium-grey: var(--c-grey-medium);
+}
+
+.layout {
+  background-color: var(--color-background-dark) !important;
+}
+
+.logo {
+  text-align: center;
+  margin-block: 2rem;
+  font-weight: 700;
+  font-size: 2.5rem;
+  font-family: 'Nunito', sans-serif;
+}
+
+.ant-menu-item {
+  color: var(--color-dark-grey) !important;
+  border-left: 5px solid transparent;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-block-end: 1rem !important;
+  padding-block: 1.5rem !important;
+}
+
+.ant-menu-item:hover {
+  background-color: var(--color-secondary-orange) !important;
+}
+
+.ant-menu-item-selected {
+  color: var(--color-primary-orange) !important;
+  background-color: var(--color-secondary-orange) !important;
+  border-left: 5px solid var(--color-primary-orange);
+  font-weight: 600;
+}

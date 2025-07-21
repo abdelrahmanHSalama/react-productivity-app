@@ -1,47 +1,52 @@
-import { useState } from "react";
-import { Button } from "antd";
-import { createPortal } from "react-dom";
-import NewTaskModal from "../components/NewTaskModal";
-import { useQuery } from "@tanstack/react-query";
-import { fetchTasks } from "../utils/tasksService";
-import TasksList from "../components/TasksList";
-import { TasksListsProvider } from "../context/TasksListContext";
+import { useEffect, useState } from 'react'
+import { Button } from 'antd'
+import { createPortal } from 'react-dom'
+import { useQuery } from '@tanstack/react-query'
+import { fetchTasks } from '@/services/utils/tasksService'
+import { TasksListsProvider } from '@/services/context/TasksListContext'
+import TasksList from '@/components/ui/Tasks/TasksList'
+import NewTaskModal from '@/components/ui/Tasks/NewTaskModal'
 
 const TasksPage = () => {
-  const [showNewTaskModal, setShowNewTaskModal] = useState(false);
-  const [modalType, setModalType] = useState("");
+  const [showNewTaskModal, setShowNewTaskModal] = useState(false)
+  const [modalType, setModalType] = useState('')
 
   const handleNewTaskModal = () => {
-    setShowNewTaskModal((prev) => !prev);
-  };
+    setShowNewTaskModal((prev) => !prev)
+  }
 
   const {
     data: tasks,
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["tasks"],
+    queryKey: ['tasks'],
     queryFn: fetchTasks,
-  });
+  })
+
+  useEffect(() => {
+    console.log(tasks)
+  }, [tasks])
 
   return (
     <TasksListsProvider>
       <main
         className={`flex flex-col gap-4 transition-all duration-100 ${
-          showNewTaskModal ? "blur-sm" : ""
+          showNewTaskModal ? 'blur-sm' : ''
         }`}
+        id="tasks"
       >
         <div className="flex justify-between px-2">
           <div>viewToggle</div>
           <Button
             style={{
-              color: "var(--main-orange)",
+              color: 'var(--color-primary-orange)',
               fontWeight: 600,
-              borderColor: "var(--main-orange)",
+              borderColor: 'var(--color-primary-orange)',
             }}
             onClick={() => {
-              setModalType("new");
-              setShowNewTaskModal((prev) => !prev);
+              setModalType('new')
+              setShowNewTaskModal((prev) => !prev)
             }}
           >
             + New Task
@@ -66,7 +71,7 @@ const TasksPage = () => {
           )}
       </main>
     </TasksListsProvider>
-  );
-};
+  )
+}
 
-export default TasksPage;
+export default TasksPage
