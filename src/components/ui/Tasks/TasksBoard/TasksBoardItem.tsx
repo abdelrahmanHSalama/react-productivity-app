@@ -1,10 +1,10 @@
 import { useTasksListContext } from '@/services/context/TasksListContext'
 import type { Task } from '@/services/types/task'
 import { useDraggable } from '@dnd-kit/core'
-import MDEditor from '@uiw/react-md-editor'
-
+import { HolderOutlined } from '@ant-design/icons'
 const TasksBoardItem = ({ task }: { task: Task }) => {
-  const { transform, isDragging } = useDraggable({ id: task.id })
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    useDraggable({ id: task.id })
 
   const style = {
     transform: transform
@@ -17,27 +17,31 @@ const TasksBoardItem = ({ task }: { task: Task }) => {
 
   return (
     <div
-      className="bg-background rounded p-4 space-y-2"
+      className="bg-background rounded p-4 space-y-4 group"
       onClick={() => setOpenTask(task)}
       key={task.id}
       style={style}
     >
-      <p className="text-lg font-medium">{task.title}</p>
-      {task.description && (
-        <p data-color-mode="light" className="bg-background *:text-lg">
-          <MDEditor.Markdown source={task.description} skipHtml />
+      <div className="flex justify-between">
+        <p
+          className="text-lg font-medium cursor-pointer"
+          onClick={() => setOpenTask(task)}
+        >
+          {task.title}
         </p>
-      )}
+        <span className="transform opacity-0 group-hover:opacity-100 transition-all duration-100">
+          <HolderOutlined
+            ref={setNodeRef}
+            {...listeners}
+            {...attributes}
+            style={{ cursor: 'grab' }}
+          />
+        </span>
+      </div>
+      {task.description && <p>{task.description}</p>}
 
       {task.image && <img src={task.image} className="rounded"></img>}
-      <div className="flex justify-between">
-        {task.assignee?.name ? (
-          <span className="flex items-center gap-1">
-            Assigned to:{' '}
-            <img src={task.assignee.avatar} className="w-6 rounded-full"></img>
-            {task.assignee.name}
-          </span>
-        ) : null}
+      <div className="flex justify-end">
         {task.reportTo?.name ? (
           <span className="flex items-center gap-1">
             Report to:{' '}
