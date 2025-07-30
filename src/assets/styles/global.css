@@ -19,8 +19,6 @@
   --color-success: var(--c-success);
   --color-warning: var(--c-warning);
   --color-info: var(--c-info);
-  --color-primary-orange: var(--c-orange-main);
-  --color-secondary-orange: var(--c-orange-secondary);
   --color-light-grey: var(--c-grey-light);
   --color-dark-grey: var(--c-grey-dark);
   --color-medium-grey: var(--c-grey-medium);
@@ -48,12 +46,16 @@
 }
 
 .ant-menu-item:hover {
-  background-color: var(--color-secondary-orange) !important;
+  background-color: var(--color-secondary) !important;
 }
 
 .ant-menu-item-selected {
-  color: var(--color-primary-orange) !important;
-  background-color: var(--color-secondary-orange) !important;
-  border-left: 5px solid var(--color-primary-orange);
+  color: var(--color-primary) !important;
+  background-color: var(--color-secondary) !important;
+  border-left: 5px solid var(--color-primary);
   font-weight: 600;
+}
+
+.delete-button:hover {
+  border-color: red !important;
 }

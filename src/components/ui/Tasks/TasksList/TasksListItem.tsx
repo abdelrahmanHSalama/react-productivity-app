@@ -8,11 +8,22 @@ import {
   CheckCircleTwoTone,
   FlagOutlined,
   FlagTwoTone,
+  HolderOutlined,
 } from '@ant-design/icons'
+import { useDraggable } from '@dnd-kit/core'
 import { useState } from 'react'
 
 const TasksListItem = ({ task }: { task: Task }) => {
   const [collapsed, setCollapsed] = useState(true)
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    useDraggable({ id: task.id })
+
+  const style = {
+    transform: transform
+      ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+      : undefined,
+    opacity: isDragging ? 0.5 : 1,
+  }
 
   const handleToggleSubtask = (subtaskId: string) => {
     toggleSubtask(task, subtaskId)
@@ -23,16 +34,24 @@ const TasksListItem = ({ task }: { task: Task }) => {
   }
 
   const { setOpenTask } = useTasksListContext()
-  // Property 'openTask' does not exist on type 'TaskListContextType | null'.ts(2339)
 
   return (
     <div
-      className="flex items-center w-full justify-between bg-white font-semibold rounded-lg"
+      className="group flex items-center w-full justify-between bg-white font-semibold rounded-lg"
       key={task.id}
+      style={style}
     >
       <div className="flex-5/8 px-2 py-3 space-y-2 ml-4">
         <div className="flex gap-2">
-          {task.subtasks.length > 0 ? (
+          <span className="transform scale-x-0 group-hover:scale-x-100 transition-all duration-200 origin-left w-0 group-hover:w-max">
+            <HolderOutlined
+              ref={setNodeRef}
+              {...listeners}
+              {...attributes}
+              style={{ cursor: 'grab' }}
+            />
+          </span>
+          {task && task.subtasks && task.subtasks.length > 0 ? (
             collapsed === true ? (
               <CaretRightOutlined
                 onClick={() => setCollapsed((prev) => !prev)}
@@ -53,6 +72,7 @@ const TasksListItem = ({ task }: { task: Task }) => {
           </span>
         </div>
         {!collapsed &&
+          !!task?.subtasks?.length &&
           task.subtasks.map((st) => (
             <p className="ml-6 flex gap-2">
               {st.done ? (
@@ -69,7 +89,7 @@ const TasksListItem = ({ task }: { task: Task }) => {
             </p>
           ))}
       </div>
-      <span className="flex-1/8 flex justify-center border-l border-l-[var(--color-medium-grey)] h-full">
+      <span className="flex-1/8 flex justify-center border-l border-l-medium-grey h-full">
         <img
           className="w-[1.5rem] rounded-full"
           src={
@@ -79,10 +99,10 @@ const TasksListItem = ({ task }: { task: Task }) => {
           alt={task.assignee?.name}
         ></img>
       </span>
-      <span className="flex-1/8 flex justify-center items-center border-l border-l-[var(--color-medium-grey)] h-full">
+      <span className="flex-1/8 flex justify-center items-center border-l border-l-medium-grey h-full">
         {task.dueDate || 'N/A'}
       </span>
-      <span className="flex-1/8 flex justify-center items-center border-l border-l-[var(--color-medium-grey)] h-full">
+      <span className="flex-1/8 flex justify-center items-center border-l border-l-medium-grey h-full">
         {task.priority === 'high' ? (
           <FlagTwoTone twoToneColor="#ff0000" />
         ) : task.priority === 'medium' ? (

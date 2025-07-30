@@ -1,7 +1,7 @@
 import { Button, DatePicker, Form, Input, Select } from 'antd'
-import ModalButton from './ModalButton'
 import { addTask } from '@/services/utils/tasksService'
 import type { Task } from '@/services/types/task'
+import MDEditor from '@uiw/react-md-editor'
 
 const NewTaskModal = ({
   taskType,
@@ -11,8 +11,6 @@ const NewTaskModal = ({
   handleModal: (show: boolean) => void
 }) => {
   const [form] = Form.useForm()
-  const { TextArea } = Input
-
   const onFinish = async (values: Task) => {
     console.log('Form submitted:', values)
     addTask(values).then((res) => console.log(res))
@@ -23,11 +21,14 @@ const NewTaskModal = ({
       <div className="w-[60%] max-h-[80vh] overflow-y-auto bg-white rounded-2xl p-4 shadow-2xl">
         <div className="flex justify-between items-center mb-4">
           <p>{taskType === 'new' ? 'New Task' : 'Edit Task'}</p>
-          <ModalButton
-            variant="bordered"
-            content="×"
+          <Button
+            style={{
+              padding: 8,
+            }}
             onClick={() => handleModal(false)}
-          />
+          >
+            ×
+          </Button>
         </div>
 
         <Form
@@ -59,102 +60,118 @@ const NewTaskModal = ({
             label="Description"
             name="description"
             rules={[
-              { required: false, message: 'Please input the task title!' },
+              {
+                required: false,
+                message: 'Please input the task description!',
+              },
             ]}
+            getValueFromEvent={(value) => value}
+            trigger="onChange"
           >
-            <TextArea />
+            <MDEditor height={200} />
           </Form.Item>
-          <Form.Item
-            label="Assignee"
-            name="assignee"
-            rules={[
-              { required: false, message: 'Please input the task title!' },
-            ]}
-          >
-            <Select
-              showSearch
-              placeholder="Select a person"
-              optionFilterProp="label"
-              options={[
-                {
-                  value: 'Michael',
-                  label: 'Michael',
-                },
-                {
-                  value: 'Franklin',
-                  label: 'Franklin',
-                },
-                {
-                  value: 'Trevor',
-                  label: 'Trevor',
-                },
+          <div className="flex gap-2">
+            <Form.Item
+              label="Assignee"
+              name="assignee"
+              rules={[
+                { required: false, message: 'Please input the task title!' },
               ]}
-            />
-          </Form.Item>
-          <Form.Item
-            label="Report to"
-            name="reportTo"
-            rules={[
-              { required: false, message: 'Please input the task title!' },
-            ]}
-          >
-            <Select
-              showSearch
-              placeholder="Select a person"
-              optionFilterProp="label"
-              options={[
-                {
-                  value: 'Michael',
-                  label: 'Michael',
-                },
-                {
-                  value: 'Franklin',
-                  label: 'Franklin',
-                },
-                {
-                  value: 'Trevor',
-                  label: 'Trevor',
-                },
+              className="w-full"
+            >
+              <Select
+                showSearch
+                placeholder="Select a person"
+                optionFilterProp="label"
+                options={[
+                  {
+                    value: 'Michael',
+                    label: 'Michael',
+                  },
+                  {
+                    value: 'Franklin',
+                    label: 'Franklin',
+                  },
+                  {
+                    value: 'Trevor',
+                    label: 'Trevor',
+                  },
+                ]}
+              />
+            </Form.Item>
+            <Form.Item
+              label="Report to"
+              name="reportTo"
+              rules={[
+                { required: false, message: 'Please input the task title!' },
               ]}
-            />
-          </Form.Item>
-          <Form.Item
-            label="Due Date"
-            name="dueDate"
-            rules={[
-              { required: false, message: 'Please input the task title!' },
-            ]}
-          >
-            <DatePicker format="YYYY-MM-DD" />
-          </Form.Item>
-          <Form.Item
-            label="Priority"
-            name="priority"
-            rules={[{ required: false, message: 'Please select a priority!' }]}
-          >
-            <Select
-              options={[
-                { value: 'low', label: 'Low' },
-                { value: 'medium', label: 'Medium' },
-                { value: 'high', label: 'High' },
+              className="w-full"
+            >
+              <Select
+                showSearch
+                placeholder="Select a person"
+                optionFilterProp="label"
+                options={[
+                  {
+                    value: 'Michael',
+                    label: 'Michael',
+                  },
+                  {
+                    value: 'Franklin',
+                    label: 'Franklin',
+                  },
+                  {
+                    value: 'Trevor',
+                    label: 'Trevor',
+                  },
+                ]}
+              />
+            </Form.Item>
+          </div>
+          <div className="flex gap-1">
+            <Form.Item
+              label="Due Date"
+              name="dueDate"
+              rules={[
+                { required: false, message: 'Please input the task title!' },
               ]}
-            />
-          </Form.Item>
-          <Form.Item
-            label="Status"
-            name="status"
-            rules={[
-              { required: false, message: 'Please input the task title!' },
-            ]}
-          >
-            <Select
-              options={[
-                { value: 'todo', label: 'Todo' },
-                { value: 'in-progress', label: 'In Progress' },
-                { value: 'done', label: 'Done' },
+              className="w-full"
+            >
+              <DatePicker format="YYYY-MM-DD" className="w-full" />
+            </Form.Item>
+            <Form.Item
+              label="Priority"
+              name="priority"
+              rules={[
+                { required: false, message: 'Please select a priority!' },
               ]}
-            />
-          </Form.Item>
+              className="w-full"
+            >
+              <Select
+                options={[
+                  { value: 'low', label: 'Low' },
+                  { value: 'medium', label: 'Medium' },
+                  { value: 'high', label: 'High' },
+                ]}
+              />
+            </Form.Item>
+            <Form.Item
+              label="Status"
+              name="status"
+              rules={[
+                { required: false, message: 'Please input the task title!' },
+              ]}
+              className="w-full"
+            >
+              <Select
+                options={[
+                  { value: 'todo', label: 'Todo' },
+                  { value: 'in-progress', label: 'In Progress' },
+                  { value: 'done', label: 'Done' },
+                ]}
+              />
+            </Form.Item>
+          </div>
           <Form.Item label="Subtasks">
             <Form.List name="subtasks">
               {(fields, { add, remove }) => (
@@ -176,11 +193,9 @@ const NewTaskModal = ({
                       </Button>
                     </div>
                   ))}
-                  <Form.Item>
-                    <Button type="dashed" onClick={() => add()} block>
-                      + Add Subtask
-                    </Button>
-                  </Form.Item>
+                  <Button type="dashed" onClick={() => add()} block>
+                    + Add Subtask
+                  </Button>
                 </>
               )}
             </Form.List>
@@ -207,11 +222,9 @@ const NewTaskModal = ({
                       </Button>
                     </div>
                   ))}
-                  <Form.Item>
-                    <Button type="dashed" onClick={() => add()} block>
-                      + Add Comment
-                    </Button>
-                  </Form.Item>
+                  <Button type="dashed" onClick={() => add()} block>
+                    + Add Comment
+                  </Button>
                 </>
               )}
             </Form.List>
