@@ -70,6 +70,15 @@ const NewTaskModal = ({
           >
             <MDEditor height={200} />
           </Form.Item>
+          <Form.Item
+            label="Image"
+            name="image"
+            rules={[
+              { required: false, message: 'Please input the task title!' },
+            ]}
+          >
+            <Input />
+          </Form.Item>
           <div className="flex gap-2">
             <Form.Item
               label="Assignee"

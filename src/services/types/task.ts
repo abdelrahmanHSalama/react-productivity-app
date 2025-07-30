@@ -21,6 +21,7 @@ export type Task = {
   status: 'todo' | 'in-progress' | 'done'
   subtasks?: Subtask[]
   comments?: Comment[]
+  image?: string
 }
 
 export type TaskFormValues = {

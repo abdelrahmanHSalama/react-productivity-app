@@ -1,6 +1,7 @@
 import { useTasksListContext } from '@/services/context/TasksListContext'
 import type { Task } from '@/services/types/task'
 import { useDraggable } from '@dnd-kit/core'
+import MDEditor from '@uiw/react-md-editor'
 
 const TasksBoardItem = ({ task }: { task: Task }) => {
   const { transform, isDragging } = useDraggable({ id: task.id })
@@ -16,17 +17,19 @@ const TasksBoardItem = ({ task }: { task: Task }) => {
 
   return (
     <div
-      className="bg-background rounded p-2 space-y-2"
+      className="bg-background rounded p-4 space-y-2"
       onClick={() => setOpenTask(task)}
       key={task.id}
       style={style}
     >
       <p className="text-lg font-medium">{task.title}</p>
-      {task.description && <p>{task.description}</p>}
-      <img
-        src="https://images.unsplash.com/photo-1506619216599-9d16d0903dfd?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        className="rounded"
-      ></img>
+      {task.description && (
+        <p data-color-mode="light" className="bg-background *:text-lg">
+          <MDEditor.Markdown source={task.description} skipHtml />
+        </p>
+      )}
+
+      {task.image && <img src={task.image} className="rounded"></img>}
       <div className="flex justify-between">
         {task.assignee?.name ? (
           <span className="flex items-center gap-1">
