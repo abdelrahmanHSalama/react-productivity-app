@@ -1,7 +1,5 @@
-import { BellOutlined, SearchOutlined } from '@ant-design/icons'
+import { SearchOutlined } from '@ant-design/icons'
 import { Input, Layout, theme } from 'antd'
-import LoginButton from '../Auth/LoginButton'
-import LogoutButton from '../Auth/LogoutButton'
 import Profile from '../Auth/Profile'
 
 const { Header: AntHeader } = Layout
