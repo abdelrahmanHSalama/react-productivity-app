@@ -43,7 +43,7 @@ export const Sidebar = () => {
   return (
     <Sider theme="light">
       <h1 className="logo">
-        TASK.<span className="text-[var(--color-primary-orange)]">ai</span>
+        Task<span className="text-primary">aty</span>
       </h1>
       <Menu
         selectedKeys={[location.pathname]}

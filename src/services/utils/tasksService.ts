@@ -1,34 +1,37 @@
-import axios from 'axios'
 import type { Task } from '../types/task'
 import { v4 as uuidv4 } from 'uuid'
+import { clientApi } from '../api/clientApi'
 
 export const fetchTasks = async () => {
-  const res = await axios.get('http://localhost:4000/tasks')
+  const res = await clientApi.get('/tasks')
+
   return res.data
 }
 
 export const addTask = async (task: Task) => {
   const newTask = { ...task }
   newTask.id = uuidv4()
-  const res = await axios.post('http://localhost:4000/tasks', newTask)
+  const res = await clientApi.post('/tasks', newTask)
   return res.data
 }
 
 export const updateTask = async (id: string, task: Task) => {
-  const res = await axios.put(`http://localhost:4000/tasks/${id}`, task)
+  const res = await clientApi.put(`/tasks/${id}`, task)
   return res.data
 }
 
 export const deleteTask = async (id: string) => {
-  await axios.delete(`http://localhost:4000/tasks/${id}`)
+  const res = await clientApi.delete(`/tasks/${id}`)
+  return res.data
 }
 
 export const toggleSubtask = async (task: Task, subtaskId: string) => {
   const newTask = { ...task }
+  if (!newTask.subtasks) return
   const subtask = newTask.subtasks.find((st) => st.id === subtaskId)
   if (subtask) {
     subtask.done = !subtask.done
   }
-  await axios.put(`http://localhost:4000/tasks/${task.id}`, newTask)
-  return newTask
+  const res = await clientApi.put(`/tasks/${task.id}`, newTask)
+  return res.data
 }

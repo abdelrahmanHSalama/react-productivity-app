@@ -4,7 +4,6 @@ export type ITheme = 'light' | 'dark' | 'system'
 
 export const DarkLightContext = React.createContext({
   theme: 'light' as ITheme,
-  setTheme: (theme: ITheme) => {},
   isDark: false,
 } as {
   theme: ITheme
