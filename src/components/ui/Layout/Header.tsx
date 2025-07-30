@@ -1,5 +1,8 @@
 import { BellOutlined, SearchOutlined } from '@ant-design/icons'
 import { Input, Layout, theme } from 'antd'
+import LoginButton from '../Auth/LoginButton'
+import LogoutButton from '../Auth/LogoutButton'
+import Profile from '../Auth/Profile'
 
 const { Header: AntHeader } = Layout
 
@@ -32,11 +35,7 @@ export const Header = () => {
           borderRadius: '2rem',
         }}
       />
-      <div className="flex items-center gap-2 mr-2">
-        <BellOutlined className="text-xl" />
-        <img src="./abdelrahman.jpg" className="rounded-full w-[2.5rem]" />
-        <p>Abdelrahman</p>
-      </div>
+      <Profile />
     </AntHeader>
   )
 }

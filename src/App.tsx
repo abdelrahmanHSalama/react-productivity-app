@@ -1,29 +1,26 @@
 import { BrowserRouter, Route, Routes } from 'react-router'
 import { MainLayout } from './components/layouts'
 import TasksPage from './pages/tasks/TasksPage'
-
-// import { useGetPostsQuery } from './services/api'
+import PrivateRoute from './components/ui/Auth/PrivateRoute'
+import LoginPage from './pages/Auth/LoginPage'
+import Home from './pages/Home'
 
 function App() {
-  // const [posts, setPosts] = useState<any>([])
-  // const [error, setError] = useState<any>(null)
-  // const [loading, setLoading] = useState<boolean>(true)
-
-  // const { data: posts, error, isLoading: loading, refetch } = useGetPostsQuery()
-
-  // useEffect(() => {
-  //   getPosts()
-  //     .then((data) => setPosts(data))
-  //     .catch((err) => setError(err))
-  //     .finally(() => setLoading(false))
-  // }, [])
-
   return (
     <>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainLayout />}>
-            <Route path="tasks" element={<TasksPage />} />
+            <Route path="" element={<Home />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route
+              path="/tasks"
+              element={
+                <PrivateRoute>
+                  <TasksPage />
+                </PrivateRoute>
+              }
+            />
           </Route>
         </Routes>
       </BrowserRouter>
